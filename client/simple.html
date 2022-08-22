@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LazyMinting</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.6.9/ethers.umd.min.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    const SIGNING_DOMAIN_NAME = "DUC-NFT-MINT-DOMAIN-nft.mint.com"
+    const SIGNING_DOMAIN_VERSION = "1"
+    const chainId = 1
+    const contractAddress = "" // Please enter the contract address
+    const signer = new ethers.Wallet("") // enter the private key of the signer
+
+    const domain = {
+      name: SIGNING_DOMAIN_NAME,
+      version: SIGNING_DOMAIN_VERSION,
+      verifyingContract: contractAddress,
+      chainId
+    }
+
+    async function createVoucher(tokenId, price, uri, buyer) {
+      const voucher = { tokenId, price, uri, buyer }
+      const types = {
+        NFTmintVoucher: [
+          {name: "tokenId", type: "uint256"},
+          {name: "price", type: "uint256"},
+          {name: "uri", type: "string"},
+          {name: "buyer", type: "address"}
+        ]
+      }
+
+      const signature = await signer._signTypedData(domain, types, voucher)
+      return {
+        ...voucher,
+        signature
+      }
+    }
+
+    async function main() {
+      const voucher = await createVoucher(5, 50, "uri", "address from nft would be minted to") // the address is the address which receives the NFT
+      console.log(`[${voucher.tokenId}, ${voucher.price}, "${voucher.uri}", "${voucher.buyer}", "${voucher.signature}"]`)
+    }
+  </script>
+</body>
+</html>

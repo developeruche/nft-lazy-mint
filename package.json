@@ -1,0 +1,21 @@
+{
+  "name": "nft-lazy-mint",
+  "version": "1.0.0",
+  "description": "This method of NFT minting implementation makes in possible for the buyer to ay the gas fees, this would reduce the gas cost on the artist ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nft",
+    "lazy",
+    "mint"
+  ],
+  "author": "developeruche",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "@openzeppelin/contracts": "^4.7.3",
+    "hardhat": "^2.10.2"
+  }
+}
